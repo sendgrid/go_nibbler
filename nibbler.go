@@ -156,13 +156,9 @@ func ParseEmail(email string) (bool, string) {
 					break
 				}
 
-				// We can't have two consecutive dashes, even in the domain
-				if currentState.PreviousDash {
-					valid = false
-					break
-				} else {
-					currentState.PreviousDash = true
-				}
+				// Set PreviousDash state for dot-dash rule checking
+				// Multiple consecutive hyphens are valid in domain names
+				currentState.PreviousDash = true
 
 				// We can't have a dash follow a dot
 				if currentState.PreviousDot {

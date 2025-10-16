@@ -12,6 +12,8 @@ type example struct {
 }
 
 var validExamples = []example{
+	example{"hi@style--plus.com", true, "hi@style--plus.com"},
+	example{"test@domain---with-multiple-hyphens.com", true, "test@domain---with-multiple-hyphens.com"},
 	example{"hoot@hoot-hoot.com", true, "hoot@hoot-hoot.com"},
 	example{"woo/+@blah.com", true, "woo/+@blah.com"},
 	example{"üñîçøðé@üñîçøðéı.com", true, "üñîçøðé@üñîçøðéı.com"},
@@ -60,8 +62,8 @@ var invalidExamples = []example{
 	example{"john@example...com", false, "john@example."},
 	example{"test@.com", false, "test@"},
 	example{"test@-.com", false, "test@"},
-	example{"test@example--thing.com", false, "test@example-"},
-	example{"test@example.com-", false, "test@example.com"},
+	example{"test@-example.com", false, "test@"},            // Dash at start of domain
+	example{"test@example.com-", false, "test@example.com"}, // Dash at end of domain
 	example{".invalid@example.com", false, ""},
 	example{"invalid.@example.com", false, "invalid."},
 	example{"@example.com", false, ""},
